@@ -11,7 +11,7 @@ class WordSim(JPWN.JapaneseWordNetCorpusReader):
         self.cache = {} #計算を早くするために一度計算した結果を保存しておく
 
     def similarity(self, a, b):
-        "類似度の計算"
+        '''類似度の計算'''
         if not isinstance(a, unicode):
             a = unicode(a)
         if not isinstance(b, unicode):
@@ -33,12 +33,12 @@ class WordSim(JPWN.JapaneseWordNetCorpusReader):
         return sim
 
     def printSimilarity(self, a, b):
-        "類似度の表示"
+        '''類似度の表示'''
         sim = self.similarity(a, b)
         if sim != None:
-            print "「"+a+"」と「"+b+"」の類似度:", sim
+            print("「"+a+"」と「"+b+"」の類似度:", sim)
         else:
-            print "「"+a+"」と「"+b+"」:辞書に無い単語を含みます"
+            print("「"+a+"」と「"+b+"」:辞書に無い単語を含みます")
 
 if __name__ == "__main__":
     wn = WordSim()

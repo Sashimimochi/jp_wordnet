@@ -1,18 +1,20 @@
 # coding: utf-8
-from nltk.corpus.reader.wordnet import WordNetCorpusReader
 import nltk
 import os
+import codecs
+
+from nltk.corpus.reader.wordnet import WordNetCorpusReader
+
 
 class JapaneseWordNetCorpusReader(WordNetCorpusReader):
     def __init__(self):
-        "データのロード"
+        '''データのロード'''
         root = nltk.data.find('corpora/wordnet')
         cd = os.path.dirname(__file__)
         if cd == "":
             cd = "."
         filename = cd+'/wnjpn-ok.tab'
         WordNetCorpusReader.__init__(self, root)
-        import codecs
         with codecs.open(filename, encoding="utf-8") as f:
             self._jword2offset = {}
             counter = 0
@@ -26,10 +28,10 @@ class JapaneseWordNetCorpusReader(WordNetCorpusReader):
                     self._jword2offset[_word] = {'offset': int(_offset), 'pos': _pos}
                     counter += 1
                 except:
-                    print "failed to lead line %d" % counter
+                    print("failed to lead line %d" % counter)
 
     def synset(self, word):
-        "synsetの取得"
+        '''synsetの取得'''
         if word in self._jword2offset:
             return WordNetCorpusReader._synset_from_pos_and_offset(
                 self, self._jword2offset[word]['pos'], self._jword2offset[word]['offset']
